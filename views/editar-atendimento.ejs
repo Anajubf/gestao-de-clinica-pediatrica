@@ -2,44 +2,68 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Atendimento</title>
+    <title>Editar Atendimento - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Editar Atendimento</h1>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <form action="/atendimentos/editar/<%= atendimento.id %>" method="POST">
-        <label>Criança:</label>
-        <select name="crianca_id" required>
-            <% criancas.forEach(c => { %>
-                <option value="<%= c.id %>" <%= c.id === atendimento.crianca_id ? 'selected' : '' %>><%= c.nome %></option>
-            <% }) %>
-        </select>
-        <br><br>
+    <div class="container" style="max-width: 600px;">
+        <h2 style="margin-bottom: 1.5rem;">Editar Atendimento</h2>
 
-        <label>Data:</label>
-        <input type="date" name="data_atendimento" value="<%= new Date(atendimento.data_atendimento).toISOString().slice(0, 10) %>" required>
-        <br><br>
+        <form action="/atendimentos/editar/<%= atendimento.id %>" method="POST">
+            <div class="form-group">
+                <label for="crianca_id">Criança:</label>
+                <select id="crianca_id" name="crianca_id" required>
+                    <% criancas.forEach(c => { %>
+                        <option value="<%= c.id %>" <%= c.id === atendimento.crianca_id ? 'selected' : '' %>>
+                            <%= c.nome %><%= c.nome_responsavel ? ` (Resp.: ${c.nome_responsavel})` : '' %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
 
-        <label>Horário:</label>
-        <input type="time" name="horario" value="<%= String(atendimento.horario).slice(0, 5) %>" required>
-        <br><br>
+            <div class="form-group">
+                <label for="data_atendimento">Data:</label>
+                <input type="date" id="data_atendimento" name="data_atendimento" value="<%= new Date(atendimento.data_atendimento).toISOString().slice(0, 10) %>" required>
+            </div>
 
-        <label>Motivo:</label>
-        <input type="text" name="motivo" value="<%= atendimento.motivo %>" required>
-        <br><br>
+            <div class="form-group">
+                <label for="horario">Horário:</label>
+                <input type="time" id="horario" name="horario" value="<%= String(atendimento.horario).slice(0, 5) %>" required>
+            </div>
 
-        <label>Situação:</label>
-        <select name="situacao" required>
-            <option value="Agendado" <%= atendimento.situacao === 'Agendado' ? 'selected' : '' %>>Agendado</option>
-            <option value="Em Atendimento" <%= atendimento.situacao === 'Em Atendimento' ? 'selected' : '' %>>Em Atendimento</option>
-            <option value="Concluído" <%= atendimento.situacao === 'Concluído' ? 'selected' : '' %>>Concluído</option>
-            <option value="Cancelado" <%= atendimento.situacao === 'Cancelado' ? 'selected' : '' %>>Cancelado</option>
-        </select>
-        <br><br>
+            <div class="form-group">
+                <label for="motivo">Motivo:</label>
+                <input type="text" id="motivo" name="motivo" value="<%= atendimento.motivo %>" required>
+            </div>
 
-        <button type="submit">Salvar alterações</button>
-    </form>
+            <div class="form-group">
+                <label for="situacao">Situação:</label>
+                <select id="situacao" name="situacao" required>
+                    <option value="Agendado" <%= atendimento.situacao === 'Agendado' ? 'selected' : '' %>>Agendado</option>
+                    <option value="Em Atendimento" <%= atendimento.situacao === 'Em Atendimento' ? 'selected' : '' %>>Em Atendimento</option>
+                    <option value="Concluído" <%= atendimento.situacao === 'Concluído' ? 'selected' : '' %>>Concluído</option>
+                    <option value="Cancelado" <%= atendimento.situacao === 'Cancelado' ? 'selected' : '' %>>Cancelado</option>
+                </select>
+            </div>
 
-    <a href="/atendimentos">Voltar</a>
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="submit">Salvar alterações</button>
+                <a href="/atendimentos" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
