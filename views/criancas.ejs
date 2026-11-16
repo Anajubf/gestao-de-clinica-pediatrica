@@ -2,40 +2,60 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Crianças</title>
+    <title>Crianças - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Cadastro de Crianças</h1>
-    <a href="/">Início</a>
-    <a href="/criancas/novo">Nova criança</a>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <% if (erro) { %>
-        <p style="color: red;"><%= erro %></p>
-    <% } %>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>Cadastro de Crianças</h2>
+            <a href="/criancas/novo" class="btn">+ Nova Criança</a>
+        </div>
 
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Data de nascimento</th>
-            <th>Responsável</th>
-            <th>Ações</th>
-        </tr>
+        <% if (erro) { %>
+            <div class="alerta-erro"><%= erro %></div>
+        <% } %>
 
-        <% criancas.forEach(c => { %>
-            <tr>
-                <td><%= c.id %></td>
-                <td><%= c.nome %></td>
-                <td><%= new Date(c.data_nascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
-                <td><%= c.responsavel %></td>
-                <td>
-                    <a href="/criancas/editar/<%= c.id %>">Editar</a>
-                    <form action="/criancas/deletar/<%= c.id %>" method="POST" style="display:inline">
-                        <button type="submit">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        <% }) %>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Data de Nascimento</th>
+                    <th>Responsável</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% criancas.forEach(c => { %>
+                    <tr>
+                        <td><%= c.id %></td>
+                        <td><%= c.nome %></td>
+                        <td><%= new Date(c.data_nascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
+                        <td><%= c.nome_responsavel || c.responsavel %></td>
+                        <td>
+                            <a href="/criancas/editar/<%= c.id %>" class="btn btn-secondary" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Editar</a>
+                            <form action="/criancas/deletar/<%= c.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir esta criança?');">
+                                <button type="submit" class="btn-danger" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

@@ -2,21 +2,52 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Início - Pequenos Passos</title>
+    <title>Início - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Clínica Pediátrica Pequenos Passos</h1>
-    <h2>Bem-vindo(a), <%= usuario.nome %>!</h2>
-    <h3>Menu principal</h3>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <ul>
-        <li><a href="/responsaveis">Responsáveis</a></li>
-        <li><a href="/criancas">Crianças</a></li>
-        <li><a href="/atendimentos">Atendimentos</a></li>
-    </ul>
+    <div class="container">
+        <div style="margin-bottom: 2rem;">
+            <h2 style="color: #0284c7; margin-bottom: 0.4rem;">Bem-vindo(a), <%= usuario.nome %>!</h2>
+            <p style="color: #64748b;">Selecione um dos módulos abaixo para gerenciar o atendimento da clínica:</p>
+        </div>
 
-    <form action="/logout" method="POST">
-        <button type="submit">Sair do sistema</button>
-    </form>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; background: #f8fafc;">
+                <h3 style="margin-bottom: 0.5rem; color: #1e293b;">Responsáveis</h3>
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.2rem;">Cadastro, consulta e edição dos pais ou responsáveis legais.</p>
+                <a href="/responsaveis" class="btn" style="width: 100%; text-align: center;">Acessar Responsáveis</a>
+            </div>
+
+            <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; background: #f8fafc;">
+                <h3 style="margin-bottom: 0.5rem; color: #1e293b;">Crianças</h3>
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.2rem;">Gerenciamento de pacientes e vínculo com seus responsáveis.</p>
+                <a href="/criancas" class="btn" style="width: 100%; text-align: center;">Acessar Crianças</a>
+            </div>
+
+            <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; background: #f8fafc;">
+                <h3 style="margin-bottom: 0.5rem; color: #1e293b;">Atendimentos</h3>
+                <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 1.2rem;">Agendamento cronológico e acompanhamento de consultas.</p>
+                <a href="/atendimentos" class="btn" style="width: 100%; text-align: center;">Acessar Atendimentos</a>
+            </div>
+        </div>
+
+        <form action="/logout" method="POST">
+            <button type="submit" class="btn-danger">Sair do sistema</button>
+        </form>
+    </div>
 </body>
 </html>

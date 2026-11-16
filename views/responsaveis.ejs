@@ -2,47 +2,70 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Responsáveis</title>
+    <title>Responsáveis - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Cadastro de Responsáveis</h1>
-    <a href="/">Início</a>
-    <a href="/responsaveis/novo">Novo responsável</a>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <% if (erro) { %>
-        <p style="color: red;"><%= erro %></p>
-    <% } %>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2>Cadastro de Responsáveis</h2>
+            <a href="/responsaveis/novo" class="btn">+ Novo Responsável</a>
+        </div>
 
-    <form action="/responsaveis" method="GET">
-        <input type="text" name="busca" placeholder="Pesquisar por nome" value="<%= busca %>">
-        <button type="submit">Buscar</button>
-    </form>
+        <% if (erro) { %>
+            <div class="alerta-erro"><%= erro %></div>
+        <% } %>
 
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>Ações</th>
-        </tr>
+        <form action="/responsaveis" method="GET" style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <input type="text" name="busca" placeholder="Pesquisar por nome..." value="<%= busca %>">
+            <button type="submit">Buscar</button>
+            <% if (busca) { %>
+                <a href="/responsaveis" class="btn btn-secondary">Limpar</a>
+            <% } %>
+        </form>
 
-        <% responsaveis.forEach(r => { %>
-            <tr>
-                <td><%= r.id %></td>
-                <td><%= r.nome %></td>
-                <td><%= r.cpf %></td>
-                <td><%= r.email %></td>
-                <td><%= r.telefone %></td>
-                <td>
-                    <a href="/responsaveis/editar/<%= r.id %>">Editar</a>
-                    <form action="/responsaveis/deletar/<%= r.id %>" method="POST" style="display:inline">
-                        <button type="submit">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        <% }) %>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% responsaveis.forEach(r => { %>
+                    <tr>
+                        <td><%= r.id %></td>
+                        <td><%= r.nome %></td>
+                        <td><%= r.cpf %></td>
+                        <td><%= r.email %></td>
+                        <td><%= r.telefone %></td>
+                        <td>
+                            <a href="/responsaveis/editar/<%= r.id %>" class="btn btn-secondary" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Editar</a>
+                            <form action="/responsaveis/deletar/<%= r.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir este responsável?');">
+                                <button type="submit" class="btn-danger" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

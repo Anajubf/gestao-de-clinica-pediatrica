@@ -2,36 +2,56 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Nova Criança</title>
+    <title>Nova Criança - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Nova Criança</h1>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <% if (erro) { %>
-        <p style="color: red;"><%= erro %></p>
-    <% } %>
+    <div class="container" style="max-width: 600px;">
+        <h2 style="margin-bottom: 1.5rem;">Nova Criança</h2>
 
-    <form action="/criancas/novo" method="POST">
-        <label>Nome:</label>
-        <input type="text" name="nome" required>
-        <br><br>
+        <% if (erro) { %>
+            <div class="alerta-erro"><%= erro %></div>
+        <% } %>
 
-        <label>Data de nascimento:</label>
-        <input type="date" name="data_nascimento" required>
-        <br><br>
+        <form action="/criancas/novo" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-        <label>Responsável:</label>
-        <select name="responsavel_id" required>
-            <option value="">Selecione um responsável</option>
-            <% responsaveis.forEach(r => { %>
-                <option value="<%= r.id %>"><%= r.nome %></option>
-            <% }) %>
-        </select>
-        <br><br>
+            <div class="form-group">
+                <label for="data_nascimento">Data de nascimento:</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" required>
+            </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <div class="form-group">
+                <label for="responsavel_id">Responsável:</label>
+                <select id="responsavel_id" name="responsavel_id" required>
+                    <option value="">Selecione um responsável</option>
+                    <% responsaveis.forEach(r => { %>
+                        <option value="<%= r.id %>"><%= r.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
 
-    <a href="/criancas">Voltar</a>
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="submit">Cadastrar</button>
+                <a href="/criancas" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

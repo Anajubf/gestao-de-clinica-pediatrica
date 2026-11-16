@@ -2,49 +2,73 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Novo Atendimento</title>
+    <title>Novo Atendimento - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Novo Atendimento</h1>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <% if (erro) { %>
-        <p style="color: red;"><%= erro %></p>
-    <% } %>
+    <div class="container" style="max-width: 600px;">
+        <h2 style="margin-bottom: 1.5rem;">Novo Atendimento</h2>
 
-    <form action="/atendimentos/novo" method="POST">
-        <label>Criança:</label>
-        <select name="crianca_id" required>
-            <option value="">Selecione uma criança</option>
-            <% criancas.forEach(c => { %>
-                <option value="<%= c.id %>"><%= c.nome %></option>
-            <% }) %>
-        </select>
-        <br><br>
+        <% if (typeof erro !== 'undefined' && erro) { %>
+            <div class="alerta-erro"><%= erro %></div>
+        <% } %>
 
-        <label>Data:</label>
-        <input type="date" name="data_atendimento" required>
-        <br><br>
+        <form action="/atendimentos/novo" method="POST">
+            <div class="form-group">
+                <label for="crianca_id">Criança:</label>
+                <select id="crianca_id" name="crianca_id" required>
+                    <option value="">Selecione uma criança</option>
+                    <% criancas.forEach(c => { %>
+                        <option value="<%= c.id %>">
+                            <%= c.nome %><%= c.nome_responsavel ? ` (Resp.: ${c.nome_responsavel})` : '' %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
 
-        <label>Horário:</label>
-        <input type="time" name="horario" required>
-        <br><br>
+            <div class="form-group">
+                <label for="data_atendimento">Data:</label>
+                <input type="date" id="data_atendimento" name="data_atendimento" required>
+            </div>
 
-        <label>Motivo:</label>
-        <input type="text" name="motivo" required>
-        <br><br>
+            <div class="form-group">
+                <label for="horario">Horário:</label>
+                <input type="time" id="horario" name="horario" required>
+            </div>
 
-        <label>Situação:</label>
-        <select name="situacao" required>
-            <option value="Agendado">Agendado</option>
-            <option value="Em Atendimento">Em Atendimento</option>
-            <option value="Concluído">Concluído</option>
-            <option value="Cancelado">Cancelado</option>
-        </select>
-        <br><br>
+            <div class="form-group">
+                <label for="motivo">Motivo:</label>
+                <input type="text" id="motivo" name="motivo" required>
+            </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <div class="form-group">
+                <label for="situacao">Situação:</label>
+                <select id="situacao" name="situacao" required>
+                    <option value="Agendado">Agendado</option>
+                    <option value="Em Atendimento">Em Atendimento</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+            </div>
 
-    <a href="/atendimentos">Voltar</a>
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="submit">Cadastrar</button>
+                <a href="/atendimentos" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

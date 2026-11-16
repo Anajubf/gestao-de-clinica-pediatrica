@@ -2,42 +2,62 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Atendimentos</title>
+    <title>Atendimentos - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Cadastro de Atendimentos</h1>
-    <a href="/">Início</a>
-    <a href="/atendimentos/novo">Novo atendimento</a>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>ID</th>
-            <th>Criança</th>
-            <th>Responsável</th>
-            <th>Data</th>
-            <th>Horário</th>
-            <th>Motivo</th>
-            <th>Situação</th>
-            <th>Ações</th>
-        </tr>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>Atendimentos Agendados</h2>
+            <a href="/atendimentos/novo" class="btn">+ Novo Atendimento</a>
+        </div>
 
-        <% atendimentos.forEach(a => { %>
-            <tr>
-                <td><%= a.id %></td>
-                <td><%= a.crianca %></td>
-                <td><%= a.responsavel %></td>
-                <td><%= new Date(a.data_atendimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
-                <td><%= String(a.horario).slice(0, 5) %></td>
-                <td><%= a.motivo %></td>
-                <td><%= a.situacao %></td>
-                <td>
-                    <a href="/atendimentos/editar/<%= a.id %>">Editar</a>
-                    <form action="/atendimentos/deletar/<%= a.id %>" method="POST" style="display:inline">
-                        <button type="submit">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        <% }) %>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Criança</th>
+                    <th>Responsável</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Motivo</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% atendimentos.forEach(a => { %>
+                    <tr>
+                        <td><%= a.id %></td>
+                        <td><%= a.nome_crianca %></td>
+                        <td><%= a.nome_responsavel %></td>
+                        <td><%= new Date(a.data_atendimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
+                        <td><%= String(a.horario).slice(0, 5) %></td>
+                        <td><%= a.motivo %></td>
+                        <td><%= a.situacao %></td>
+                        <td>
+                            <a href="/atendimentos/editar/<%= a.id %>" class="btn btn-secondary" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Editar</a>
+                            <form action="/atendimentos/deletar/<%= a.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir este atendimento?');">
+                                <button type="submit" class="btn-danger" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

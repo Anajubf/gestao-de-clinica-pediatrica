@@ -2,31 +2,51 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Criança</title>
+    <title>Editar Criança - Clínica Pequenos Passos</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Editar Criança</h1>
+    <header>
+        <h1>Clínica Pequenos Passos</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/responsaveis">Responsáveis</a>
+            <a href="/criancas">Crianças</a>
+            <a href="/atendimentos">Atendimentos</a>
+            <form action="/logout" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">Sair</button>
+            </form>
+        </nav>
+    </header>
 
-    <form action="/criancas/editar/<%= crianca.id %>" method="POST">
-        <label>Nome:</label>
-        <input type="text" name="nome" value="<%= crianca.nome %>" required>
-        <br><br>
+    <div class="container" style="max-width: 600px;">
+        <h2 style="margin-bottom: 1.5rem;">Editar Criança</h2>
 
-        <label>Data de nascimento:</label>
-        <input type="date" name="data_nascimento" value="<%= new Date(crianca.data_nascimento).toISOString().slice(0, 10) %>" required>
-        <br><br>
+        <form action="/criancas/editar/<%= crianca.id %>" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="<%= crianca.nome %>" required>
+            </div>
 
-        <label>Responsável:</label>
-        <select name="responsavel_id" required>
-            <% responsaveis.forEach(r => { %>
-                <option value="<%= r.id %>" <%= r.id === crianca.responsavel_id ? 'selected' : '' %>><%= r.nome %></option>
-            <% }) %>
-        </select>
-        <br><br>
+            <div class="form-group">
+                <label for="data_nascimento">Data de nascimento:</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" value="<%= new Date(crianca.data_nascimento).toISOString().slice(0, 10) %>" required>
+            </div>
 
-        <button type="submit">Salvar alterações</button>
-    </form>
+            <div class="form-group">
+                <label for="responsavel_id">Responsável:</label>
+                <select id="responsavel_id" name="responsavel_id" required>
+                    <% responsaveis.forEach(r => { %>
+                        <option value="<%= r.id %>" <%= r.id === crianca.responsavel_id ? 'selected' : '' %>><%= r.nome %></option>
+                    <% }) %>
+                </select>
+            </div>
 
-    <a href="/criancas">Voltar</a>
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="submit">Salvar alterações</button>
+                <a href="/criancas" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
