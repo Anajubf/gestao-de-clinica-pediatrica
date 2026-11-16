@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Crianças</title>
+</head>
+<body>
+    <h1>Cadastro de Crianças</h1>
+
+    <a href="/home">Início</a>
+    <a href="/nova-crianca">Nova criança</a>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Data de nascimento</th>
+            <th>Responsável</th>
+            <th>Ações</th>
+        </tr>
+
+        <% criancas.forEach(c => { %>
+            <tr>
+                <td><%= c.id %></td>
+                <td><%= c.nome %></td>
+                <td><%= new Date(c.data_nascimento).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) %></td>
+                <td><%= c.responsavel %></td>
+                <td>
+                    <a href="/editar-crianca/<%= c.id %>">Editar</a>
+
+                    <form action="/excluir-crianca/<%= c.id %>"
+                          method="POST"
+                          style="display:inline">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

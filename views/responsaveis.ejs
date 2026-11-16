@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsáveis</title>
+</head>
+<body>
+    <h1>Cadastro de Responsáveis</h1>
+
+    <a href="/home">Início</a>
+    <a href="/novo-responsavel">Novo responsável</a>
+
+    <form action="/responsaveis" method="GET">
+        <input
+            type="text"
+            name="busca"
+            placeholder="Pesquisar por nome"
+            value="<%= busca %>"
+        >
+        <button type="submit">Buscar</button>
+    </form>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+
+        <% responsaveis.forEach(r => { %>
+            <tr>
+                <td><%= r.id %></td>
+                <td><%= r.nome %></td>
+                <td><%= r.cpf %></td>
+                <td><%= r.email %></td>
+                <td><%= r.telefone %></td>
+                <td>
+                    <a href="/editar-responsavel/<%= r.id %>">Editar</a>
+
+                    <form action="/excluir-responsavel/<%= r.id %>"
+                          method="POST"
+                          style="display:inline">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

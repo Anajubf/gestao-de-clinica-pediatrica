@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Responsável</title>
+</head>
+<body>
+    <h1>Novo Responsável</h1>
+
+    <form action="/novo-responsavel" method="POST">
+
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+
+        <br><br>
+
+        <label>CPF:</label>
+        <input type="text" name="cpf" maxlength="14" required>
+
+        <br><br>
+
+        <label>E-mail:</label>
+        <input type="email" name="email" required>
+
+        <br><br>
+
+        <label>Telefone:</label>
+        <input type="text" name="telefone" required>
+
+        <br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <a href="/responsaveis">Voltar</a>
+</body>
+</html>
