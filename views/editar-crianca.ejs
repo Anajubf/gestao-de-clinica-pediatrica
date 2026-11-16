@@ -7,32 +7,21 @@
 <body>
     <h1>Editar Criança</h1>
 
-    <form action="/editar-crianca/<%= crianca.id %>" method="POST">
-
+    <form action="/criancas/editar/<%= crianca.id %>" method="POST">
         <label>Nome:</label>
-        <input type="text" name="nome"
-               value="<%= crianca.nome %>" required>
-
+        <input type="text" name="nome" value="<%= crianca.nome %>" required>
         <br><br>
 
         <label>Data de nascimento:</label>
-        <input type="date" name="data_nascimento"
-               value="<%= new Date(crianca.data_nascimento).toISOString().slice(0,10) %>"
-               required>
-
+        <input type="date" name="data_nascimento" value="<%= new Date(crianca.data_nascimento).toISOString().slice(0, 10) %>" required>
         <br><br>
 
         <label>Responsável:</label>
-
         <select name="responsavel_id" required>
             <% responsaveis.forEach(r => { %>
-                <option value="<%= r.id %>"
-                    <%= r.id === crianca.responsavel_id ? 'selected' : '' %>>
-                    <%= r.nome %>
-                </option>
+                <option value="<%= r.id %>" <%= r.id === crianca.responsavel_id ? 'selected' : '' %>><%= r.nome %></option>
             <% }) %>
         </select>
-
         <br><br>
 
         <button type="submit">Salvar alterações</button>

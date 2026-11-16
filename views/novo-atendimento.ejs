@@ -7,45 +7,39 @@
 <body>
     <h1>Novo Atendimento</h1>
 
-    <form action="/novo-atendimento" method="POST">
+    <% if (erro) { %>
+        <p style="color: red;"><%= erro %></p>
+    <% } %>
 
+    <form action="/atendimentos/novo" method="POST">
         <label>Criança:</label>
-
         <select name="crianca_id" required>
             <option value="">Selecione uma criança</option>
-
             <% criancas.forEach(c => { %>
-                <option value="<%= c.id %>">
-                    <%= c.nome %>
-                </option>
+                <option value="<%= c.id %>"><%= c.nome %></option>
             <% }) %>
         </select>
-
         <br><br>
 
         <label>Data:</label>
         <input type="date" name="data_atendimento" required>
-
         <br><br>
 
         <label>Horário:</label>
         <input type="time" name="horario" required>
-
         <br><br>
 
         <label>Motivo:</label>
         <input type="text" name="motivo" required>
-
         <br><br>
 
         <label>Situação:</label>
-
         <select name="situacao" required>
             <option value="Agendado">Agendado</option>
-            <option value="Realizado">Realizado</option>
+            <option value="Em Atendimento">Em Atendimento</option>
+            <option value="Concluído">Concluído</option>
             <option value="Cancelado">Cancelado</option>
         </select>
-
         <br><br>
 
         <button type="submit">Cadastrar</button>

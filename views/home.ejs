@@ -6,9 +6,7 @@
 </head>
 <body>
     <h1>Clínica Pediátrica Pequenos Passos</h1>
-
     <h2>Bem-vindo(a), <%= usuario.nome %>!</h2>
-
     <h3>Menu principal</h3>
 
     <ul>
@@ -17,6 +15,8 @@
         <li><a href="/atendimentos">Atendimentos</a></li>
     </ul>
 
-    <a href="/logout">Sair do sistema</a>
+    <form action="/logout" method="POST">
+        <button type="submit">Sair do sistema</button>
+    </form>
 </body>
 </html>

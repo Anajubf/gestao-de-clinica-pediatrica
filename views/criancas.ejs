@@ -6,9 +6,12 @@
 </head>
 <body>
     <h1>Cadastro de Crianças</h1>
+    <a href="/">Início</a>
+    <a href="/criancas/novo">Nova criança</a>
 
-    <a href="/home">Início</a>
-    <a href="/nova-crianca">Nova criança</a>
+    <% if (erro) { %>
+        <p style="color: red;"><%= erro %></p>
+    <% } %>
 
     <table border="1" cellpadding="8">
         <tr>
@@ -23,14 +26,11 @@
             <tr>
                 <td><%= c.id %></td>
                 <td><%= c.nome %></td>
-                <td><%= new Date(c.data_nascimento).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) %></td>
+                <td><%= new Date(c.data_nascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %></td>
                 <td><%= c.responsavel %></td>
                 <td>
-                    <a href="/editar-crianca/<%= c.id %>">Editar</a>
-
-                    <form action="/excluir-crianca/<%= c.id %>"
-                          method="POST"
-                          style="display:inline">
+                    <a href="/criancas/editar/<%= c.id %>">Editar</a>
+                    <form action="/criancas/deletar/<%= c.id %>" method="POST" style="display:inline">
                         <button type="submit">Excluir</button>
                     </form>
                 </td>

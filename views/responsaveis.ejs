@@ -6,17 +6,15 @@
 </head>
 <body>
     <h1>Cadastro de Responsáveis</h1>
+    <a href="/">Início</a>
+    <a href="/responsaveis/novo">Novo responsável</a>
 
-    <a href="/home">Início</a>
-    <a href="/novo-responsavel">Novo responsável</a>
+    <% if (erro) { %>
+        <p style="color: red;"><%= erro %></p>
+    <% } %>
 
     <form action="/responsaveis" method="GET">
-        <input
-            type="text"
-            name="busca"
-            placeholder="Pesquisar por nome"
-            value="<%= busca %>"
-        >
+        <input type="text" name="busca" placeholder="Pesquisar por nome" value="<%= busca %>">
         <button type="submit">Buscar</button>
     </form>
 
@@ -38,11 +36,8 @@
                 <td><%= r.email %></td>
                 <td><%= r.telefone %></td>
                 <td>
-                    <a href="/editar-responsavel/<%= r.id %>">Editar</a>
-
-                    <form action="/excluir-responsavel/<%= r.id %>"
-                          method="POST"
-                          style="display:inline">
+                    <a href="/responsaveis/editar/<%= r.id %>">Editar</a>
+                    <form action="/responsaveis/deletar/<%= r.id %>" method="POST" style="display:inline">
                         <button type="submit">Excluir</button>
                     </form>
                 </td>
